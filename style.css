@@ -31,8 +31,17 @@ section {
 	height:auto;
 }
 
-.album-thumbnail ul{
+.album-thumbnails ul{
 	display : flex;
-	justify-content: center;
+	justify-content: space-around;
+	align-items: baseline;
 	flex-wrap: wrap;
+	list-style-type : none;
+}
+.album-thumbnails img {
+	background-color: rgb(223,55,76);
+
+}
+.album-thumbnails img:hover{
+	opacity:0.7;
 }
