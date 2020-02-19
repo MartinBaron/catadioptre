@@ -1,0 +1,38 @@
+body {
+	color : #111;
+    /*background-image: url("images/home.jpg");
+    background-position : 214px -20px;
+    background-repeat: no-repeat;
+    background-size: contain; 
+    height:100%;*/
+    }
+
+header {
+	width:15em;
+	height: 100%;
+	top:0;
+	bottom:0;
+	left:0;
+	float: left;
+	vertical-align: top;
+	min-width: 200px;
+	position: fixed;
+}
+
+section {
+	display : inline-block;
+	border-left: 2px black solid;
+    margin-left:15em;
+	margin-top:-1em;
+	margin-right:-0.5em;}
+
+.top-picture img{
+	max-width: 100%;
+	height:auto;
+}
+
+.album-thumbnail ul{
+	display : flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
