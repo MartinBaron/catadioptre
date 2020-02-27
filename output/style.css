@@ -20,6 +20,7 @@ body {
 	text-align:center;
 	max-width:100%;
 	max-height:700px;
+	margin-top:1em;
 
 }
 .photo{
@@ -79,10 +80,11 @@ footer a{
 }
 
 
+
 /*HOME PAGE and ALBUM PAGE*/
 section {
 	display : inline-block;
-	border-left: 2px rgb(51,35,28) solid;
+	border-left: 2px  rgb(36,57,87) solid;
     margin-left:15em;
 	margin-top:-1em;
 	margin-right:-0.5em;}
@@ -181,6 +183,9 @@ $color_blue : rgb(36,57,87)
 	margin-left:1em;
 }
 
+em {
+	font-weight: bold;
+}
 header {
 	width:15em;
 	height: 100%;
@@ -196,6 +201,7 @@ header {
 header li{
 	list-style-type:none;
 	font-size: 1.5em;
+	padding-bottom : 0.3em;
 }
 
 header li:hover{
@@ -209,5 +215,16 @@ header a{
 }
 
 header h1{
-	margin-left: 1em
+	margin-left: 1em;
+	margin-bottom: 1.5em;
+}
+
+header h3{
+	margin-left: 1em;
+	font-size:1.5em;
+	font-style: italic;
+}
+
+strong {
+text-decoration:underline;
 }
