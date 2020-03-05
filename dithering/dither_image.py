@@ -31,16 +31,20 @@ except:
     logging.warning("Unable to load PIL or hitherdither, disabling thumbnailer")
     enabled = False
 
-DEFAULT_IMAGE_DIR = "images"
+DEFAULT_IMAGE_DIR = "images2"
 DEFAULT_DITHER_DIR = "dithers"
 DEFAULT_DITHER_ORIGINAL_DIR = "dithers_original"
 DEFAULT_THRESHOLD = [96, 96, 96] # this sets the contrast of the final image, rgb
 DEFAULT_TRANSPARENCY= False
 DEFAULT_TRANSPARENT_COLOR = [(125,125,125)]
 DEFAULT_DITHER_PALETTE = [(25,25,25), (75,75,75),(125,125,125),(175,175,175),(225,225,225),(250,250,250)] # 6 tone palette\
+DEFAULT_DITHER_PALOURDE = [(160,42,150),(255,255,255)] # 6 tone palette\
+#DEFAULT_DITHER_PALOURDE = [(247,185,45),(160,42,150),(39,57,88),(255,255,255)] # 6 tone palette\
+
+
 DEFAULT_RESIZE_OUTPUT = True
 DEFAULT_MAX_SIZE = (500,500)
-DEFAULT_MAX_SIZE_ORIGINAL = (300,300)
+DEFAULT_MAX_SIZE_ORIGINAL = (200,200)
 
 #11 tone palette, heavier, more detail, less visible dither pattern
 #[(0,0,0),(25,25,25),(50,50,50),(75,75,75),(100,100,100),(125,125,125),(150,150,150),(175,175,175),(200,200,200),(225,225,225),(250,250,250)]
@@ -66,7 +70,7 @@ def dither(pelican):
     #out_path = _out_path(pelican)
 
 #in and out for local generation
-    in_path = os.path.join(os.getcwd(), "images")
+    in_path = os.path.join(os.getcwd(), "images2")
     out_path = os.path.join(os.getcwd(), "dithers")
 
 
@@ -111,8 +115,8 @@ def resize(pelican):
         return
 
 #in and out for local generation
-    in_path = os.path.join(os.getcwd(), "images")
-    out_path_original = os.path.join(os.getcwd(), "dithers_original_small")
+    in_path = os.path.join(os.getcwd(), "images2")
+    out_path_original = os.path.join(os.getcwd(), "dithers_vignette")
 
     transparency = DEFAULT_TRANSPARENCY
 
@@ -123,7 +127,7 @@ def resize(pelican):
         for filename in filenames:
             file_, ext = os.path.splitext(filename)
             fn= os.path.join(dirpath,filename)
-            of = os.path.join(out_path_original, filename.replace(ext,'_original.png'))
+            of = os.path.join(out_path_original, filename.replace(ext,'_vignette.png'))
             if not os.path.exists(of) and imghdr.what(fn):
                 logging.debug("dither plugin: dithering {}".format(fn))
 
@@ -171,5 +175,5 @@ def register():
     signals.content_object_init.connect(parse_for_images)
 
 
-dither("pelican");
+#dither("pelican");
 resize("pelican")

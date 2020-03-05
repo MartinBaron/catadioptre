@@ -7,7 +7,7 @@ import shutil
 import imghdr
 import csv
 from distutils.dir_util import copy_tree
-
+from datetime import datetime
 
 try:
     from PIL import Image
@@ -182,32 +182,57 @@ def gen_album_pages(album_name, album_name_display):
 			gen_page(page_name,album_name, album_name_display,False)
 		counter = counter+1
 
+def date_translator(album_date):
+	album_date = album_date.strftime('%b %Y')
+	a = album_date.split(" ")[0]
+	if a == "Jan":
+		mois = "Janvier"
+	elif a == "Feb":
+		mois = "Février"
+	elif a == "Mar":
+		mois = "Mars"
+	elif a == "Apr":
+		mois = "Avril"
+	elif a == "May":
+		mois = "Mai"
+	elif a == "Jun":
+		mois = "Juin"
+	elif a == "Jul":
+		mois = "Juillet"
+	elif a == "Aug":
+		mois = "Août"
+	elif a == "Sep":
+		mois = "Septembre"
+	elif a == "Oct":
+		mois = "Octobre"
+	elif a == "Nov":
+		mois = "Novembre"
+	elif a == "Dec":
+		mois = "Décembre"
+	return str(mois + " " + album_date.split(" ")[1])
+
 def create_htmls(album_name, album_date,album_name_display):
 	#updating album.csv
 	with open('albums.csv','a', newline='\n') as csvfile:
 		csvwriter = csv.writer(csvfile,delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL,lineterminator='\n')
-		csvwriter.writerow([album_name, album_date, album_name_display])
+		csvwriter.writerow([album_name, album_date.strftime('%m/%Y'), album_name_display])
 	
 	#generating album liste and album vignette html parts
 	with open('albums.csv','r') as csvfile:
 		csvreader = csv.reader(csvfile,delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-		linecount = 0
 		album_liste = ""
 		album_liste_home = ""
 		album_vignette = ""
-		for line in csvreader:
-			###print(line)
-			###print(linecount)
-			if linecount==0:
-				pass
-			else:
-				album_liste = album_liste +'<li><a href="../' + line[0] + '/photo_page/01.html">' + line[2] + '</a></li>\n'
-				album_liste_home = album_liste_home + '<li><a href="albums/' + line[0] + '/photo_page/01.html">' + line[2] + '</a></li>\n'
-				album_vignette = album_vignette + '<li><a href="albums/' + line[0] + '/photo_page/01.html"><img src="albums/' + line[0] + '/featured_dithered.png", alt="cover-'+line[0]+'"/></a><div class="thumb"><h2>'+line[2]+'</h2><time>'+line[1]+'</time></div></li>\n'
-			linecount=linecount+1
+		print(csvreader)
+		for line in sorted(csvreader,key=lambda r:  datetime.strptime(r[1], '%m/%Y'),reverse=True):
+			print(line)
+
+			album_liste = album_liste +'<li><a href="../' + line[0] + '/overview.html">' + line[2] + '</a></li>\n'
+			album_liste_home = album_liste_home + '<li><a href="albums/' + line[0] + '/overview.html">' + line[2] + '</a></li>\n'
+			album_vignette = album_vignette + '<li><a href="albums/' + line[0] + '/photo_page/01.html"><img src="albums/' + line[0] + '/featured_dithered.png", alt="cover-'+line[0]+'"/></a><div class="thumb"><h2>'+line[2]+'</h2><time>'+date_translator(datetime.strptime(line[1],'%m/%Y'))+'</time></div></li>\n'
+			
 		###print(album_liste)
 		###print(album_vignette)
-
 	#generating home page
 	gen_index(album_liste_home,album_vignette)
 
@@ -217,15 +242,11 @@ def create_htmls(album_name, album_date,album_name_display):
 	#generating overview.html and pages for all albums
 	with open('albums.csv','r') as csvfile:
 		csvreader = csv.reader(csvfile,delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-		linecount = 0
 		for line in csvreader:
-			if linecount ==0 :
-				pass
-			else:
-				album_overview = gen_overview_part(line[0])
-				gen_overview(line[0],line[1],line[2],album_liste.replace(line[2],"<em>&nbsp " + line[2] + "</em>"), album_overview)
-				gen_album_pages(line[0], line[2])
-			linecount=linecount+1
+			album_overview = gen_overview_part(line[0])
+			gen_overview(line[0],date_translator(datetime.strptime(line[1],'%m/%Y')),line[2],album_liste.replace(line[2],"<em>&nbsp " + line[2] + "</em>"), album_overview)
+			gen_album_pages(line[0], line[2])
+			
 
 
 
@@ -271,7 +292,12 @@ def main():
 	print("Importons un nouvel album !")
 	print("************************\n")
 	album_name_display = input("Comment s'appelle ce nouvel album ? \n")
-	album_date = input("Quelle est la date de cet album ? (Mois AAAA, commme Mars 2020 par exemple) \n")
+	album_date_input = input("Quelle est la date de cet album ? (MM/AAAA, commme 03/2020 par exemple) \n")
+	album_date_split = album_date_input.split("/")
+	album_date = datetime(int(album_date_split[1]), int(album_date_split[0]),1)
+	print(album_date.strftime('%b %Y'))
+	d = date_translator(album_date)
+	print(d)
 	#create the folder name
 	album_name = unidecode.unidecode(album_name_display.replace(" ", "_").lower().translate(str.maketrans('', '', string.punctuation)))
 	###print(album_date)
