@@ -13,9 +13,12 @@
 
 > Serveur d'hébergement :  carlosdisarli.all2all.org
 > Nom d'utilisateur :      photo-palourde
-> Mot de passe :           B1eD8V41hV4BEYw
+> Mot de passe :           **************
 > Adresse statistiques :   http://www.photo-palourde.com/stats
 > URL interface gestion :  https://carlosdisarli.all2all.org:10000/
 
 	
-	
+##COMMENT MODIFIER LE A PROPOS ?
+
+* Ouvrir le fichier output/a_propos.html dans sublime, et faire les modifs.
+* Ouvrir le fichier templates_html/a_propos.html et faire les mêmes modifs.
