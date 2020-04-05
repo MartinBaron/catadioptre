@@ -402,8 +402,8 @@ padding:0em;}
 .photo img {max-height: 1300px;}
 
 footer {
-	top:700px;
-}
+position:relative;
+top:10px;}
 
 footer h3 {
 	font-size:3em;
