@@ -335,6 +335,7 @@ text-decoration:underline;
 	text-align: center;
 	margin-right:2em;
 	background-color: white;
+	margin-top:1.5em;
 }
 .header-mobile h1{
 	font-size: 5em;
@@ -416,6 +417,11 @@ footer h3 {
 .album-title time{
 	font-size:2em;
 }
+
+.album-title{
+	margin-top: -3em;
+}
+
 }
 
 

@@ -133,7 +133,7 @@ def gen_page(current,album_name, album_name_display, last_page):
 	hout = open("output/albums/" + album_name + "/photo_page/"+current+".html", "wt")
 	#checking if first page
 	if current == "01":
-		photo_previous = '<img src="../../../images/left_palourde.png", alt="previous"/>'
+		photo_previous = '<img src="../../../images/left_palourde.png", alt="previous" style="opacity:0;"/>'
 	else:
 		previous_number = int(current)-1
 		if previous_number < 10:
@@ -143,7 +143,7 @@ def gen_page(current,album_name, album_name_display, last_page):
 		photo_previous = '<a href="'+previous_number+'.html"><img src="../../../images/left_palourde.png", alt="previous"/></a>'
 	#checking if last page
 	if last_page:
-		photo_next = '<img src="../../../images/right_palourde.png", alt="next"/>'
+		photo_next = '<img src="../../../images/right_palourde.png", alt="next" style="opacity:0;"/>'
 	else:
 		next_number = int(current)+1
 		if next_number < 10:
